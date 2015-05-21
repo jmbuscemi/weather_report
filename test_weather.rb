@@ -33,12 +33,19 @@ class WeatherReportTest < Minitest::Test
     assert_equal random, report.zipcode
   end
 
-  def test_get_current_conditions
-    report = WeatherReport.new(27954)
-    summary = CurrentCondition.new(report.zipcode)
+  # def test_get_current_conditions
+  #   report = WeatherReport.new(27954)
+  #   summary = CurrentCondition.new(report.zipcode)
+  #
+  #   assert_equal "Manteo, NC", summary.location
+  #   assert_in_delta 75, summary.current_temp, 50
+  # end
 
-    assert_equal "Manteo, NC", summary.location
-    assert_in_delta 75, summary.current_temp, 50
+  def test_get_10_day_forecast
+    report = WeatherReport.new(27954)
+    forecast = TenDayForecast.new(report.zipcode)
+
+
   end
 
 end
