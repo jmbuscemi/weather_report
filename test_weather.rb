@@ -48,4 +48,11 @@ class WeatherReportTest < Minitest::Test
   #   forecast.get_forecast
   # end
 
+  # def test_sunrise_sunset_times
+  #   report = WeatherReport.new(27954)
+  #   suntimes = SunriseSunsetTime.new(report.zipcode)
+  #
+  #   suntimes.get_forecast
+  # end
+
 end
