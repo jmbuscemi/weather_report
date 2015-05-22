@@ -41,11 +41,11 @@ class WeatherReportTest < Minitest::Test
   #   assert_in_delta 75, summary.current_temp, 50
   # end
 
-  def test_get_10_day_forecast
-    report = WeatherReport.new(27954)
-    forecast = TenDayForecast.new(report.zipcode)
-
-
-  end
+  # def test_get_10_day_forecast
+  #   report = WeatherReport.new(27954)
+  #   forecast = TenDayForecast.new(report.zipcode)
+  #
+  #   forecast.get_forecast
+  # end
 
 end

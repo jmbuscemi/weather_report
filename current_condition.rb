@@ -29,6 +29,8 @@ class CurrentCondition
 
 end
 
+##Output display
+#TO DELETE
 # summary = CurrentCondition.new(27954)
 #
 # p "In #{summary.location} it is currently #{summary.current_temp}F"
