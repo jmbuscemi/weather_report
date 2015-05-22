@@ -9,8 +9,6 @@ require './sunrise_sunset_time.rb'
 require './active_hurricane.rb'
 require './current_alert.rb'
 
-
-
 class WeatherReportTest < Minitest::Test
 
   def test_truth
@@ -52,7 +50,14 @@ class WeatherReportTest < Minitest::Test
   #   report = WeatherReport.new(27954)
   #   suntimes = SunriseSunsetTime.new(report.zipcode)
   #
-  #   suntimes.get_forecast
+  #   suntimes.get_sun_times
+  # end
+
+  # def test_alert
+  #   report = WeatherReport.new(27954)
+  #   alert = CurrentAlert.new(report.zipcode)
+  #
+  #   alert.get_alert
   # end
 
 end

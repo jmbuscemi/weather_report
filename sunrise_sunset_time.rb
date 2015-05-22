@@ -3,7 +3,7 @@ require 'httparty'
 class SunriseSunsetTime
 
   def initialize(zip)
-    @astronomy = HTTParty.get("https://api.wunderground.com/api/#{ENV["WUNDERGROUND_KEY"]}/astronomy/q/zmw:#{zip}.1.99999.json")
+    @astronomy = HTTParty.get("https://api.wunderground.com/api/#{ENV["WUNDERGROUND_KEY"]}/astronomy/q/#{zip}.json")
   end
 
   def get_sun_times
@@ -16,7 +16,6 @@ class SunriseSunsetTime
     p "Sunrise: #{rise_hour}:#{rise_minute}AM (local time)"
     p "Sunset: #{set_hour.to_i - 12}:#{set_minute}PM (local time)"
   end
-
 
 end
 

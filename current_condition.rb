@@ -4,7 +4,7 @@ class CurrentCondition
   attr_reader :conditions
 
   def initialize(zip)
-    @conditions = HTTParty.get("https://api.wunderground.com/api/#{ENV["WUNDERGROUND_KEY"]}/conditions/q/zmw:#{zip}.1.99999.json")
+    @conditions = HTTParty.get("https://api.wunderground.com/api/#{ENV["WUNDERGROUND_KEY"]}/conditions/q/#{zip}.json")
   end
 
   def location
