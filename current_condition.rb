@@ -4,7 +4,7 @@ class CurrentCondition
   attr_reader :conditions
 
   def initialize(zip)
-    @conditions = HTTParty.get("https://api.wunderground.com/api/#{ENV["WUNDERGROUND_KEY"]}/conditions/q/#{zip}.json")
+    @conditions = get_data
   end
 
   def location
@@ -27,6 +27,10 @@ class CurrentCondition
     @conditions["current_observation"]["wind_mph"]
   end
 
+  private def get_data
+    HTTParty.get("https://api.wunderground.com/api/#{ENV["WUNDERGROUND_KEY"]}/conditions/q/#{zip}.json")
+  end
+
 end
 
 ##Output display
@@ -34,5 +38,5 @@ end
 # summary = CurrentCondition.new(27954)
 #
 # p "In #{summary.location} it is currently #{summary.current_temp}F"
-# p "It feels like #{summary.feels_like}"
+# p "It feels like #{summary.feels_like.to_i}"
 # p "The wind is blowing #{summary.wind_speed}mph out of the #{summary.wind_dir}"

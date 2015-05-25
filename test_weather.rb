@@ -1,19 +1,48 @@
 # Basic test requires
 require 'minitest/autorun'
 require 'minitest/pride'
+require 'json'
 
 require './weather_report'
 require './current_condition'
-require './ten_day_forecast.rb'
-require './sunrise_sunset_time.rb'
-require './active_hurricane.rb'
-require './current_alert.rb'
+require './ten_day_forecast'
+require './sunrise_sunset_time'
+require './active_hurricane'
+require './current_alert'
+
+#FROM MINI LECTURE
+class CurrentCondition
+  private def get_data
+    JSON.parse(File.open("current_conditions.json").read)
+  end
+end
+
+class TenDayForecast
+  private def get_data
+    JSON.parse(File.open("forecast10day.json").read)
+  end
+end
+
+class SunriseSunsetTime
+  private def get_data
+    JSON.parse(File.open("astronomy.json").read)
+  end
+end
+
+class CurrentAlert
+  private def get_data
+    JSON.parse(File.open("alert.json").read)
+  end
+end
+
+class ActiveHurricane
+  private def get_data
+    JSON.parse(File.open("hurricane.json").read)
+  end
+end
+
 
 class WeatherReportTest < Minitest::Test
-
-  def test_truth
-    assert true
-  end
 
   def test_weather_classes_exists
     assert WeatherReport
@@ -31,27 +60,34 @@ class WeatherReportTest < Minitest::Test
     assert_equal random, report.zipcode
   end
 
-  # def test_get_current_conditions
-  #   report = WeatherReport.new(27954)
-  #   summary = CurrentCondition.new(report.zipcode)
-  #
-  #   assert_equal "Manteo, NC", summary.location
-  #   assert_in_delta 75, summary.current_temp, 50
-  # end
+  def test_get_current_conditions
+    report = WeatherReport.new(27954)
+    summary = CurrentCondition.new(report.zipcode)
+
+    assert_equal "Manteo, NC", summary.location
+    assert_equal 71.1, summary.current_temp
+    assert_equal "71.1", summary.feels_like
+    assert_equal 4.3 ,summary.wind_speed
+    assert_equal "East" ,summary.wind_dir
+  end
 
   # def test_get_10_day_forecast
   #   report = WeatherReport.new(27954)
   #   forecast = TenDayForecast.new(report.zipcode)
   #
-  #   forecast.get_forecast
+  #
   # end
 
-  # def test_sunrise_sunset_times
-  #   report = WeatherReport.new(27954)
-  #   suntimes = SunriseSunsetTime.new(report.zipcode)
-  #
-  #   suntimes.get_sun_times
-  # end
+  def test_get_sun_time
+    report = WeatherReport.new(27954)
+    sun_time = SunriseSunsetTime.new(report.zipcode, "sunrise")
+    assert sun_time.get_sun_times.match(/5\:52/)
+
+    sun_time = SunriseSunsetTime.new(report.zipcode, "sunset")
+    assert sun_time.get_sun_times.match(/8\:06/)
+  end
+
+
 
   # def test_alert
   #   report = WeatherReport.new(27954)
@@ -59,5 +95,8 @@ class WeatherReportTest < Minitest::Test
   #
   #   alert.get_alert
   # end
+
+
+
 
 end

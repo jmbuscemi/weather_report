@@ -3,21 +3,25 @@ require 'httparty'
 class CurrentAlert
 
   def initialize(zip)
-    @alert = HTTParty.get("https://api.wunderground.com/api/#{ENV["WUNDERGROUND_KEY"]}/alerts/q/#{zip}.json")
+    @alert = get_data
   end
 
   def get_alert
-    alert_array = @alert["alerts"]
+    array = @alert["alerts"]
 
-    if alert_array == []
+    if array == []
       puts "There are no current alerts for your area."
     else
-      alert_array.each do |d|
+      array.each do |d|
         puts "ALERT: #{d["description"]}"
         puts "Expires on: #{d["expires"]}"
         puts ""
       end
     end
+  end
+
+  private def get_data
+    HTTParty.get("https://api.wunderground.com/api/#{ENV["WUNDERGROUND_KEY"]}/alerts/q/#{zip}.json")
   end
 
 end

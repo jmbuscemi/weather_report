@@ -2,19 +2,27 @@ require 'httparty'
 
 class SunriseSunsetTime
 
-  def initialize(zip)
-    @astronomy = HTTParty.get("https://api.wunderground.com/api/#{ENV["WUNDERGROUND_KEY"]}/astronomy/q/#{zip}.json")
+  def initialize(zip, type)
+    @astronomy = get_data
+    @type = type
   end
 
   def get_sun_times
-    rise_hour = @astronomy["moon_phase"]["sunrise"]["hour"]
-    rise_minute = @astronomy["moon_phase"]["sunrise"]["minute"]
+    rise_hour = @astronomy["sun_phase"]["sunrise"]["hour"]
+    rise_minute = @astronomy["sun_phase"]["sunrise"]["minute"]
 
-    set_hour = @astronomy["moon_phase"]["sunset"]["hour"]
-    set_minute = @astronomy["moon_phase"]["sunset"]["minute"]
+    set_hour = @astronomy["sun_phase"]["sunset"]["hour"]
+    set_minute = @astronomy["sun_phase"]["sunset"]["minute"]
 
-    p "Sunrise: #{rise_hour}:#{rise_minute}AM (local time)"
-    p "Sunset: #{set_hour.to_i - 12}:#{set_minute}PM (local time)"
+    if @type == "sunrise"
+      "Sunrise: #{rise_hour}:#{rise_minute}AM (local time)"
+    else
+      "Sunset: #{set_hour.to_i - 12}:#{set_minute}PM (local time)"
+    end
+  end
+
+  private def get_data
+    HTTParty.get("https://api.wunderground.com/api/#{ENV["WUNDERGROUND_KEY"]}/astronomy/q/#{zip}.json")
   end
 
 end
