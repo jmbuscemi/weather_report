@@ -4,10 +4,12 @@ class CurrentAlert
   attr_reader :alert_type
 
   def initialize(zip)
-    @alert = get_data
+    @zip = zip
+    @alert = HTTParty.get("https://api.wunderground.com/api/#{ENV["WUNDERGROUND_KEY"]}/alerts/q/#{@zip}.json")
   end
 
   def get_alert
+    array = []
     array = @alert["alerts"]
 
     if array == []
@@ -16,14 +18,14 @@ class CurrentAlert
     else
       array.each do |d|
         puts "ALERT: #{d["description"]} /// Expires on: #{d["expires"]}"
-      @alert_type = "ALERT: #{d["description"]}"
+        @alert_type = "ALERT: #{d["description"]}"
       end
     end
     @alert_type
   end
 
-  private def get_data
-    HTTParty.get("https://api.wunderground.com/api/#{ENV["WUNDERGROUND_KEY"]}/alerts/q/#{zip}.json")
-  end
+  # private def get_data
+  #   HTTParty.get("https://api.wunderground.com/api/#{ENV["WUNDERGROUND_KEY"]}/alerts/q/#{@zip}.json")
+  # end
 
 end

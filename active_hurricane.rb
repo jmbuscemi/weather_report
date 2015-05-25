@@ -7,18 +7,15 @@ class ActiveHurricane
   end
 
   def get_hurricane
+    array = []
     array = @hurricane["currenthurricane"]
 
     if array == []
-      puts "==================================="
       puts "There are currently no hurricanes."
-      puts "==================================="
       @storm_name = "NONE"
     else
       array.each_with_index do |item, index|
-        puts "==================================="
         puts "Hurricane Name: #{item["stormInfo"]["stormName_Nice"]}"
-        puts "==================================="
         puts "Category: #{item["Current"]["SaffirSimpsonCategory"]} (#{item["Current"]["Category"]})"
         puts "Sustained Winds: #{item["Current"]["WindSpeed"]["Mph"]}mph"
         unless item["Current"]["WindGust"]["Mph"] == "null"
@@ -45,9 +42,3 @@ class ActiveHurricane
     HTTParty.get("https://api.wunderground.com/api/#{ENV["WUNDERGROUND_KEY"]}/currenthurricane/view.json")
   end
 end
-
-
-# #Output display
-# #TO DELETE
-# a = ActiveHurricane.new
-# a.get_hurricane

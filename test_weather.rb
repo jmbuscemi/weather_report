@@ -10,7 +10,6 @@ require './sunrise_sunset_time'
 require './active_hurricane'
 require './current_alert'
 
-#FROM MINI LECTURE
 class CurrentCondition
   private def get_data
     JSON.parse(File.open("current_conditions.json").read)
@@ -74,7 +73,6 @@ class WeatherReportTest < Minitest::Test
   def test_get_10_day_forecast
     report = WeatherReport.new(27954)
     forecast = TenDayForecast.new(report.zipcode)
-
     assert_equal forecast.get_forecast, "Clear"
   end
 
@@ -99,8 +97,4 @@ class WeatherReportTest < Minitest::Test
 
     assert_equal hurricane.get_hurricane, "Invest 90E"
   end
-
-
-
-
 end

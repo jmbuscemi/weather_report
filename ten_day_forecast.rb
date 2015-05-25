@@ -4,8 +4,8 @@ class TenDayForecast
   attr_reader :forecast_condition
 
   def initialize(zip)
-    @forecast = get_data
     @zip = zip
+    @forecast = HTTParty.get("http://api.wunderground.com/api/#{ENV["WUNDERGROUND_KEY"]}/forecast10day/q/#{@zip}.json")
   end
 
 #Refactor using -  Day | Description | Low Temp | High Temp
@@ -13,14 +13,14 @@ class TenDayForecast
   def get_forecast
     array = @forecast["forecast"]["simpleforecast"]["forecastday"]
     array.each do |d|
-      puts "#{d["date"]["weekday"]} || #{d["conditions"]} | Low = #{d["low"]["fahrenheit"]} | High = #{d["high"]["fahrenheit"]}"
-    @forecast_condition = "#{d["conditions"]}"
+      p "#{d["date"]["weekday_short"].upcase} #{d["date"]["year"]}-#{d["date"]["month"]}-#{d["date"]["day"]} || #{d["conditions"]} | Low = #{d["low"]["fahrenheit"]} | High = #{d["high"]["fahrenheit"]}"
+      @forecast_condition = "#{d["conditions"]}"
     end
     @forecast_condition
   end
 
-  private def get_data
-    HTTParty.get("https://api.wunderground.com/api/#{ENV["WUNDERGROUND_KEY"]}/forecast10day/q/#{@zip}.json")
-  end
+  # private def get_data
+  #   HTTParty.get("https://api.wunderground.com/api/#{ENV["WUNDERGROUND_KEY"]}/forecast10day/q/#{@zip}.json")
+  # end
 
 end

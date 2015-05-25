@@ -4,6 +4,7 @@ class CurrentCondition
   attr_reader :conditions
 
   def initialize(zip)
+    @zipcode = zip
     @conditions = get_data
   end
 
@@ -28,7 +29,7 @@ class CurrentCondition
   end
 
   private def get_data
-    HTTParty.get("https://api.wunderground.com/api/#{ENV["WUNDERGROUND_KEY"]}/conditions/q/#{zip}.json")
+    HTTParty.get("https://api.wunderground.com/api/#{ENV["WUNDERGROUND_KEY"]}/conditions/q/#{@zipcode}.json")
   end
 
 end
