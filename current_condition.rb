@@ -32,11 +32,3 @@ class CurrentCondition
   end
 
 end
-
-##Output display
-#TO DELETE
-# summary = CurrentCondition.new(27954)
-#
-# p "In #{summary.location} it is currently #{summary.current_temp}F"
-# p "It feels like #{summary.feels_like.to_i}"
-# p "The wind is blowing #{summary.wind_speed}mph out of the #{summary.wind_dir}"

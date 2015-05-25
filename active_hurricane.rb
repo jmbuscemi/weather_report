@@ -1,7 +1,7 @@
 require 'httparty'
 
 class ActiveHurricane
-
+  attr_reader :storm_namec
   def initialize
     @hurricane = get_data
   end
@@ -10,12 +10,15 @@ class ActiveHurricane
     array = @hurricane["currenthurricane"]
 
     if array == []
+      puts "==================================="
       puts "There are currently no hurricanes."
+      puts "==================================="
+      @storm_name = "NONE"
     else
       array.each_with_index do |item, index|
-        puts "================================="
+        puts "==================================="
         puts "Hurricane Name: #{item["stormInfo"]["stormName_Nice"]}"
-        puts "================================="
+        puts "==================================="
         puts "Category: #{item["Current"]["SaffirSimpsonCategory"]} (#{item["Current"]["Category"]})"
         puts "Sustained Winds: #{item["Current"]["WindSpeed"]["Mph"]}mph"
         unless item["Current"]["WindGust"]["Mph"] == "null"
@@ -32,8 +35,10 @@ class ActiveHurricane
           puts "Location: #{item["Current"]["lon"]}deg E"
         end
         puts "Movement: #{item["Current"]["Movement"]["Text"]} @ #{item["Current"]["Fspeed"]["Mph"]}mph"
+      @storm_name = "#{item["stormInfo"]["stormName_Nice"]}"
       end
     end
+    @storm_name
   end
 
   private def get_data

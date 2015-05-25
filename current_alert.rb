@@ -1,6 +1,7 @@
 require 'httparty'
 
 class CurrentAlert
+  attr_reader :alert_type
 
   def initialize(zip)
     @alert = get_data
@@ -11,13 +12,14 @@ class CurrentAlert
 
     if array == []
       puts "There are no current alerts for your area."
+      @alert_type = "NONE"
     else
       array.each do |d|
-        puts "ALERT: #{d["description"]}"
-        puts "Expires on: #{d["expires"]}"
-        puts ""
+        puts "ALERT: #{d["description"]} /// Expires on: #{d["expires"]}"
+      @alert_type = "ALERT: #{d["description"]}"
       end
     end
+    @alert_type
   end
 
   private def get_data
@@ -25,8 +27,3 @@ class CurrentAlert
   end
 
 end
-
-# #Output display
-# #TO DELETE
-# a = CurrentAlert.new(76301)
-# a.get_alert

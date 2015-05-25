@@ -26,8 +26,3 @@ class SunriseSunsetTime
   end
 
 end
-
-##Output display
-#TO DELETE
-# a = SunriseSunsetTime.new(27954)
-# a.get_sun_times

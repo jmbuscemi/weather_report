@@ -71,12 +71,12 @@ class WeatherReportTest < Minitest::Test
     assert_equal "East" ,summary.wind_dir
   end
 
-  # def test_get_10_day_forecast
-  #   report = WeatherReport.new(27954)
-  #   forecast = TenDayForecast.new(report.zipcode)
-  #
-  #
-  # end
+  def test_get_10_day_forecast
+    report = WeatherReport.new(27954)
+    forecast = TenDayForecast.new(report.zipcode)
+
+    assert_equal forecast.get_forecast, "Clear"
+  end
 
   def test_get_sun_time
     report = WeatherReport.new(27954)
@@ -87,14 +87,18 @@ class WeatherReportTest < Minitest::Test
     assert sun_time.get_sun_times.match(/8\:06/)
   end
 
+  def test_alert
+    report = WeatherReport.new(76301)
+    alert = CurrentAlert.new(report.zipcode)
 
+    assert_equal alert.get_alert, "ALERT: Areal Flood Advisory, Flash Flood Watch"
+  end
 
-  # def test_alert
-  #   report = WeatherReport.new(27954)
-  #   alert = CurrentAlert.new(report.zipcode)
-  #
-  #   alert.get_alert
-  # end
+  def test_hurricane
+    hurricane = ActiveHurricane.new
+
+    assert_equal hurricane.get_hurricane, "Invest 90E"
+  end
 
 
 
