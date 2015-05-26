@@ -3,8 +3,8 @@ require 'httparty'
 class CurrentAlert
   attr_reader :alert_type
 
-  def initialize(zip)
-    @zip = zip
+  def initialize(location)
+    @location = location
     @alert = get_data
   end
 
@@ -25,7 +25,7 @@ class CurrentAlert
   end
 
   private def get_data
-    HTTParty.get("https://api.wunderground.com/api/#{ENV["WUNDERGROUND_KEY"]}/alerts/q/#{@zip}.json")
+    HTTParty.get("https://api.wunderground.com/api/#{ENV["WUNDERGROUND_KEY"]}/alerts/q/#{@location}.json")
   end
 
 end

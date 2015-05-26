@@ -1,14 +1,14 @@
 require 'httparty'
 
 class WeatherReport
-  attr_reader :zipcode
+  attr_reader :location
 
-  def initialize(zip = nil)
-    if zip
-      @zipcode = zip
+  def initialize(location = nil)
+    if location
+      @location = location
     else
       p "Enter weather location (City, State OR Zipcode): "
-      @zipcode = gets.chomp
+      @location = gets.chomp
     end
   end
 

@@ -1,7 +1,7 @@
 require 'httparty'
 
 class ActiveHurricane
-  attr_reader :storm_namec
+  attr_reader :storm_name
   def initialize
     @hurricane = get_data
   end

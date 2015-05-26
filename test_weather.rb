@@ -56,14 +56,14 @@ class WeatherReportTest < Minitest::Test
     random = rand(99999)+1
     report = WeatherReport.new(random)
 
-    assert_equal random, report.zipcode
+    assert_equal random, report.location
   end
 
   def test_get_current_conditions
     report = WeatherReport.new(27954)
-    summary = CurrentCondition.new(report.zipcode)
+    summary = CurrentCondition.new(report.location)
 
-    assert_equal "Manteo, NC", summary.location
+    assert_equal "Manteo, NC", summary.city_state
     assert_equal 71.1, summary.current_temp
     assert_equal "71.1", summary.feels_like
     assert_equal 4.3 ,summary.wind_speed
@@ -72,22 +72,22 @@ class WeatherReportTest < Minitest::Test
 
   def test_get_10_day_forecast
     report = WeatherReport.new(27954)
-    forecast = TenDayForecast.new(report.zipcode)
+    forecast = TenDayForecast.new(report.location)
     assert_equal forecast.get_forecast, "Clear"
   end
 
   def test_get_sun_time
     report = WeatherReport.new(27954)
-    sun_time = SunriseSunsetTime.new(report.zipcode, "sunrise")
+    sun_time = SunriseSunsetTime.new(report.location, "sunrise")
     assert sun_time.get_sun_times.match(/5\:52/)
 
-    sun_time = SunriseSunsetTime.new(report.zipcode, "sunset")
+    sun_time = SunriseSunsetTime.new(report.location, "sunset")
     assert sun_time.get_sun_times.match(/8\:06/)
   end
 
   def test_alert
     report = WeatherReport.new(76301)
-    alert = CurrentAlert.new(report.zipcode)
+    alert = CurrentAlert.new(report.location)
 
     assert_equal alert.get_alert, "ALERT: Areal Flood Advisory, Flash Flood Watch"
   end

@@ -12,18 +12,19 @@ def big_header
 end
 
 report = WeatherReport.new()
-zip = report.zipcode.to_i
+# zip = report.zipcode.to_i
+location = report.location
 
-summary = CurrentCondition.new(zip)
-forecast = TenDayForecast.new(zip)
-sunrise = SunriseSunsetTime.new(zip, "sunrise")
-sunset = SunriseSunsetTime.new(zip, "sunset")
-alert = CurrentAlert.new(zip)
+summary = CurrentCondition.new(location)
+forecast = TenDayForecast.new(location)
+sunrise = SunriseSunsetTime.new(location, "sunrise")
+sunset = SunriseSunsetTime.new(location, "sunset")
+alert = CurrentAlert.new(location)
 hurricane = ActiveHurricane.new
 
 big_header
 puts "               ******** Current Conditions ********               "
-puts "Location: #{summary.location}"
+puts "Location: #{summary.city_state}"
 puts "Temp: #{summary.current_temp}F"
 puts "Feels like: #{summary.feels_like.to_i}F"
 puts "Wind: #{summary.wind_dir} @ #{summary.wind_speed}mph "

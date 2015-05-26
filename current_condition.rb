@@ -3,12 +3,12 @@ require 'httparty'
 class CurrentCondition
   attr_reader :conditions
 
-  def initialize(zip)
-    @zipcode = zip
+  def initialize(location)
+    @location = location
     @conditions = get_data
   end
 
-  def location
+  def city_state
     @conditions["current_observation"]["display_location"]["full"]
   end
 
@@ -29,7 +29,7 @@ class CurrentCondition
   end
 
   private def get_data
-    HTTParty.get("https://api.wunderground.com/api/#{ENV["WUNDERGROUND_KEY"]}/conditions/q/#{@zipcode}.json")
+    HTTParty.get("https://api.wunderground.com/api/#{ENV["WUNDERGROUND_KEY"]}/conditions/q/#{@location}.json")
   end
 
 end
