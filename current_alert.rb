@@ -5,7 +5,7 @@ class CurrentAlert
 
   def initialize(zip)
     @zip = zip
-    @alert = HTTParty.get("https://api.wunderground.com/api/#{ENV["WUNDERGROUND_KEY"]}/alerts/q/#{@zip}.json")
+    @alert = get_data
   end
 
   def get_alert
@@ -24,8 +24,8 @@ class CurrentAlert
     @alert_type
   end
 
-  # private def get_data
-  #   HTTParty.get("https://api.wunderground.com/api/#{ENV["WUNDERGROUND_KEY"]}/alerts/q/#{@zip}.json")
-  # end
+  private def get_data
+    HTTParty.get("https://api.wunderground.com/api/#{ENV["WUNDERGROUND_KEY"]}/alerts/q/#{@zip}.json")
+  end
 
 end

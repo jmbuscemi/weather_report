@@ -7,7 +7,7 @@ class WeatherReport
     if zip
       @zipcode = zip
     else
-      p "Enter weather location (zipcode): "
+      p "Enter weather location (City, State OR Zipcode): "
       @zipcode = gets.chomp
     end
   end

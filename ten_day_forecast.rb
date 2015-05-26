@@ -5,7 +5,7 @@ class TenDayForecast
 
   def initialize(zip)
     @zip = zip
-    @forecast = HTTParty.get("http://api.wunderground.com/api/#{ENV["WUNDERGROUND_KEY"]}/forecast10day/q/#{@zip}.json")
+    @forecast = get_data
   end
 
 #Refactor using -  Day | Description | Low Temp | High Temp
@@ -19,8 +19,8 @@ class TenDayForecast
     @forecast_condition
   end
 
-  # private def get_data
-  #   HTTParty.get("https://api.wunderground.com/api/#{ENV["WUNDERGROUND_KEY"]}/forecast10day/q/#{@zip}.json")
-  # end
+  private def get_data
+    HTTParty.get("https://api.wunderground.com/api/#{ENV["WUNDERGROUND_KEY"]}/forecast10day/q/#{@zip}.json")
+  end
 
 end
