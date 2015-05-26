@@ -25,7 +25,13 @@ class CurrentAlert
   end
 
   private def get_data
-    HTTParty.get("https://api.wunderground.com/api/#{ENV["WUNDERGROUND_KEY"]}/alerts/q/#{@location}.json")
+    if @location.match(/\d{5}/)
+      HTTParty.get("https://api.wunderground.com/api/#{ENV["WUNDERGROUND_KEY"]}/alerts/q/#{@location}.json")
+    else
+      state = @location.split(/[\s,]+/)[-1]
+      city = @location.split(/[\s,]+/)[0..-2].join('_')
+      HTTParty.get("https://api.wunderground.com/api/#{ENV["WUNDERGROUND_KEY"]}/alerts/q/#{state}/#{city}.json")
+    end
   end
 
 end
