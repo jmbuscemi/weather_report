@@ -6,6 +6,7 @@ require './ten_day_forecast'
 require './sunrise_sunset_time'
 require './active_hurricane'
 require './current_alert'
+require 'byebug'
 
 def big_header
   puts "=================================================================="
@@ -33,8 +34,8 @@ puts "               ********   10 Day Forecast  ********               "
 forecast.display.each {|day| p day}
 big_header
 puts "               ********  Sunrise / Sunset  ********               "
-sunrise.display_time
-sunset.display_time
+puts sunrise.display_time
+puts sunset.display_time
 big_header
 puts "               ********       Alerts       ********               "
 alert.display.each {|alert| puts alert}
