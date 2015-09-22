@@ -2,6 +2,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'json'
+require 'byebug'
 
 require './weather_report'
 require './current_condition'
@@ -12,31 +13,31 @@ require './current_alert'
 
 class CurrentCondition
   private def get_data
-    JSON.parse(File.open("current_conditions.json").read)
+    JSON.parse(File.read("./test_input/current_conditions.json"))
   end
 end
 
 class TenDayForecast
   private def get_data
-    JSON.parse(File.open("forecast10day.json").read)
+    JSON.parse(File.read("./test_input/forecast10day.json"))
   end
 end
 
 class SunriseSunsetTime
   private def get_data
-    JSON.parse(File.open("astronomy.json").read)
+    JSON.parse(File.read("./test_input/astronomy.json"))
   end
 end
 
 class CurrentAlert
   private def get_data
-    JSON.parse(File.open("alert.json").read)
+    JSON.parse(File.read("./test_input/alert.json"))
   end
 end
 
 class ActiveHurricane
   private def get_data
-    JSON.parse(File.open("hurricane.json").read)
+    JSON.parse(File.read("./test_input/hurricane.json"))
   end
 end
 
@@ -52,7 +53,7 @@ class WeatherReportTest < Minitest::Test
     assert ActiveHurricane
   end
 
-  def test_get_user_input
+  def test_report_can_display_location
     random = rand(99999)+1
     report = WeatherReport.new(random)
 
@@ -73,28 +74,28 @@ class WeatherReportTest < Minitest::Test
   def test_get_10_day_forecast
     report = WeatherReport.new(27954)
     forecast = TenDayForecast.new(report.location)
-    assert_equal forecast.get_forecast, "Clear"
+    assert forecast.display.last.match(/(Clear)/)
   end
 
   def test_get_sun_time
     report = WeatherReport.new(27954)
-    sun_time = SunriseSunsetTime.new(report.location, "sunrise")
-    assert sun_time.get_sun_times.match(/5\:52/)
+    sunrise = SunriseSunsetTime.new(report.location, "sunrise")
+    assert sunrise.display_time.match(/5\:52/)
 
-    sun_time = SunriseSunsetTime.new(report.location, "sunset")
-    assert sun_time.get_sun_times.match(/8\:06/)
+    sunset = SunriseSunsetTime.new(report.location, "sunset")
+    assert sunset.display_time.match(/8\:06/)
   end
 
   def test_alert
     report = WeatherReport.new(76301)
     alert = CurrentAlert.new(report.location)
-
-    assert_equal alert.get_alert, "ALERT: Areal Flood Advisory, Flash Flood Watch"
+    assert alert.display.last.match(/(Flood)/)
+    # assert_equal "ALERT: Areal Flood Advisory, Flash Flood Watch /// Expires on: 7:00 AM CDT on May 25, 2015", alert.display.last
   end
 
   def test_hurricane
     hurricane = ActiveHurricane.new
 
-    assert_equal hurricane.get_hurricane, "Invest 90E"
+    assert_equal "Invest 90E", hurricane.get_hurricane
   end
 end

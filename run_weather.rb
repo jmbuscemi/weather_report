@@ -30,14 +30,14 @@ puts "Feels like: #{summary.feels_like.to_i}F"
 puts "Wind: #{summary.wind_dir} @ #{summary.wind_speed}mph "
 big_header
 puts "               ********   10 Day Forecast  ********               "
-forecast.get_forecast
+forecast.display.each {|day| p day}
 big_header
 puts "               ********  Sunrise / Sunset  ********               "
-sunrise.get_sun_times
-sunset.get_sun_times
+sunrise.display_time
+sunset.display_time
 big_header
 puts "               ********       Alerts       ********               "
-alert.get_alert
+alert.display.each {|alert| puts alert}
 big_header
 puts "               ********  Active Hurricanes ********               "
 hurricane.get_hurricane

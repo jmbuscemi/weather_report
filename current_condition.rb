@@ -1,7 +1,6 @@
 require 'httparty'
 
 class CurrentCondition
-  attr_reader :conditions
 
   def initialize(location)
     @location = location
