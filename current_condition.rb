@@ -28,14 +28,13 @@ class CurrentCondition
   end
 
   private def get_data
-    # if @location.match(/\d{5}/)
-    #   HTTParty.get("https://api.wunderground.com/api/#{ENV["WUNDERGROUND_KEY"]}/conditions/q/#{@location}.json")
-    # else
-    #   state = @location.split(/[\s,]+/)[-1]
-    #   city = @location.split(/[\s,]+/)[0..-2].join('_')
-    #   HTTParty.get("https://api.wunderground.com/api/#{ENV["WUNDERGROUND_KEY"]}/conditions/q/#{state}/#{city}.json")
-    # end
-    JSON.parse(File.read("./test_input/current_conditions.json"))
+    if @location.match(/\d{5}/)
+      HTTParty.get("https://api.wunderground.com/api/#{ENV["WUNDERGROUND_KEY"]}/conditions/q/#{@location}.json")
+    else
+      state = @location.split(/[\s,]+/)[-1]
+      city = @location.split(/[\s,]+/)[0..-2].join('_')
+      HTTParty.get("https://api.wunderground.com/api/#{ENV["WUNDERGROUND_KEY"]}/conditions/q/#{state}/#{city}.json")
+    end
   end
 
 end

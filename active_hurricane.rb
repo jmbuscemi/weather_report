@@ -93,7 +93,6 @@ class ActiveHurricane
   end
 
   private def get_data
-    # HTTParty.get("https://api.wunderground.com/api/#{ENV["WUNDERGROUND_KEY"]}/currenthurricane/view.json")
-    JSON.parse(File.read("./test_input/hurricane.json"))
+    HTTParty.get("https://api.wunderground.com/api/#{ENV["WUNDERGROUND_KEY"]}/currenthurricane/view.json")
   end
 end
