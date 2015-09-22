@@ -95,7 +95,6 @@ class WeatherReportTest < Minitest::Test
 
   def test_hurricane
     hurricane = ActiveHurricane.new
-
-    assert_equal "Invest 90E", hurricane.get_hurricane
+    assert hurricane.display.last.match(/Invest/)
   end
 end

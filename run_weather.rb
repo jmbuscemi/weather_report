@@ -41,5 +41,5 @@ puts "               ********       Alerts       ********               "
 alert.display.each {|alert| puts alert}
 big_header
 puts "               ********  Active Hurricanes ********               "
-hurricane.get_hurricane
+hurricane.display.each {|hurricane| puts hurricane}
 big_header
