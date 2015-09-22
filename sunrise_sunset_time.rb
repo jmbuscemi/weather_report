@@ -16,7 +16,6 @@ class SunriseSunsetTime
 
     if @type == "sunrise"
       "Sunrise: #{rise_hour}:#{rise_minute}AM (local time)"
-      # byebug
     else
       "Sunset: #{set_hour.to_i - 12}:#{set_minute}PM (local time)"
     end

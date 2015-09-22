@@ -11,7 +11,7 @@ class TenDayForecast
 #Need to think about hash/array structure below four output.
   def display
     array = @forecast["forecast"]["simpleforecast"]["forecastday"]
-    output = array.map do |d|
+    array.map do |d|
       "#{d["date"]["weekday_short"].upcase} #{d["date"]["year"]}-#{d["date"]["month"]}-#{d["date"]["day"]} || #{d["conditions"]} | Low = #{d["low"]["fahrenheit"]} | High = #{d["high"]["fahrenheit"]}"
     end
   end

@@ -10,7 +10,7 @@ class CurrentAlert < WeatherReport
   def display
     array = @alert["alerts"]
     return "There are no alerts in your area." if array == []
-    output = array.map do |d|
+    array.map do |d|
       "ALERT: #{d["description"]} /// Expires on: #{d["expires"]}"
     end
   end
